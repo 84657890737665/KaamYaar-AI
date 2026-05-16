@@ -24,9 +24,9 @@ class MapsService:
         Returns a dictionary with 'distance' and 'duration', or None if calculation fails.
         """
         if not self.client:
-            # Return mock response
             return {
                 "distance": "15.5 km",
+                "distance_value": 15500,
                 "duration": "45 mins"
             }
         
@@ -37,6 +37,7 @@ class MapsService:
                 if element['status'] == 'OK':
                     return {
                         "distance": element['distance']['text'], # e.g. "15.5 km"
+                        "distance_value": element['distance']['value'], # in meters
                         "duration": element['duration']['text']  # e.g. "45 mins"
                     }
                 else:
