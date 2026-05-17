@@ -19,6 +19,7 @@ class Provider(BaseFirestoreModel):
     base_rate: float = Field(..., gt=0.0, description="Base service rate in PKR")
     availability: bool = Field(default=True, description="Whether the provider is currently available for booking")
     skills: List[str] = Field(default_factory=list, description="List of specific skills or specializations")
+    total_jobs: int = Field(default=0, ge=0, description="Total number of completed jobs")
 
 class ProviderWithDistance(Provider):
     distance_text: str = Field(..., description="Distance formatted text (e.g., '5.2 km')")

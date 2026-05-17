@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from app.config import settings
-from app.routers import parse_request, find_providers, rank_providers
+from app.routers import parse_request, find_providers, rank_providers, pricing, booking, quality
 from app.services.firestore_service import firestore_service
 
 # Proper logging configuration
@@ -60,6 +60,9 @@ api_prefix = "/api/v1"
 app.include_router(parse_request.router, prefix=api_prefix)
 app.include_router(find_providers.router, prefix=api_prefix)
 app.include_router(rank_providers.router, prefix=api_prefix)
+app.include_router(pricing.router, prefix=api_prefix)
+app.include_router(booking.router, prefix=api_prefix)
+app.include_router(quality.router, prefix=api_prefix)
 
 @app.get("/health", tags=["health"])
 def health_check():
