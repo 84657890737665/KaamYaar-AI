@@ -218,10 +218,21 @@ __marimo__/
 .streamlit/secrets.toml
 
 .env
+.env*
 firebase-credentials.json
 
 __pycache__/
 .venv/
 .pytest_cache/
 *.pyc
+
+# Local IDEs and workspace settings
+.vscode/
+.idea/
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+Thumbs.db
+ehthumbs.db
 

@@ -5,7 +5,7 @@ Pakistani Multilingual Language Parser Agent — Agent 1 of 7.
 
 Goal    : Detect language, normalize text, translate to English, and extract
           structured service-request slots from multilingual Pakistani input.
-Model   : Gemini 2.0 Flash
+Model   : Gemini 1.5 Flash
 Inputs  : Raw user text (Urdu, Roman Urdu, English, Sindhi, Punjabi, Pashto,
           Balochi, Pahari/Hindko, Balti/Shina, or any mix thereof)
 Outputs : ParsedServiceRequest (language analysis + service slots)
@@ -25,7 +25,7 @@ from core.llm_client import get_gemini_client
 
 logger = logging.getLogger(__name__)
 
-MODEL_ID = "gemini-2.0-flash"
+MODEL_ID = "gemini-1.5-flash"
 
 
 class LanguageParserAgent(BaseAgent):
@@ -35,7 +35,7 @@ class LanguageParserAgent(BaseAgent):
         tone, code-switching, dialect, confidence)
       - Extracted service slots (type, location, urgency, budget, preferences)
 
-    Uses Gemini 2.0 Flash with native structured (JSON) output to guarantee
+    Uses Gemini Flash with native structured (JSON) output to guarantee
     a response that exactly matches the ParsedServiceRequest Pydantic schema.
     """
 
@@ -77,10 +77,10 @@ class LanguageParserAgent(BaseAgent):
 
     def parse_request(self, text: str) -> ParsedServiceRequest:
         """
-        Send `text` to Gemini 2.0 Flash and return a fully validated
+        Send `text` to Gemini Flash and return a fully validated
         ParsedServiceRequest with language analysis + service slots.
 
-        Automatically retries on 429 rate-limit errors with exponential backoff.
+        Automatically falls back to alternative models in a chain on 429 rate limits.
 
         Args:
             text: Raw user input in any supported Pakistani language/dialect.
@@ -95,32 +95,49 @@ class LanguageParserAgent(BaseAgent):
             text[:60].replace("\n", " "),
         )
 
-        max_retries = 4
-        backoff = 15  # seconds
+        FALLBACK_MODELS = [
+            "gemini-2.0-flash",
+            "gemini-2.0-flash-lite",
+            "gemini-2.5-flash",
+            "gemini-1.5-flash",
+            "gemini-1.5-flash-8b",
+        ]
 
-        for attempt in range(1, max_retries + 1):
+        config = types.GenerateContentConfig(
+            system_instruction=SYSTEM_PROMPT,
+            response_mime_type="application/json",
+            response_schema=ParsedServiceRequest,
+            temperature=0.0,
+        )
+
+        response = None
+        last_exception = None
+
+        for model_id in FALLBACK_MODELS:
+            logger.info("[%s] Attempting parsing with model: %s", self.name, model_id)
             try:
                 response = self._client.models.generate_content(
-                    model=MODEL_ID,
+                    model=model_id,
                     contents=text,
-                    config=types.GenerateContentConfig(
-                        system_instruction=SYSTEM_PROMPT,
-                        response_mime_type="application/json",
-                        response_schema=ParsedServiceRequest,
-                        temperature=0.0,
-                    ),
+                    config=config,
                 )
-                break  # Success — exit retry loop
-
-            except ResourceExhausted as exc:
-                if attempt == max_retries:
-                    raise
-                wait = backoff * attempt
+                logger.info("[%s] Success with model: %s", self.name, model_id)
+                break
+            except Exception as exc:
+                exc_msg = str(exc)
                 logger.warning(
-                    "[%s] Rate limit hit (attempt %d/%d). Retrying in %ds…",
-                    self.name, attempt, max_retries, wait,
+                    "[%s] Model %s failed to parse: %s. Trying next fallback...",
+                    self.name,
+                    model_id,
+                    exc_msg,
                 )
-                time.sleep(wait)
+                last_exception = exc
+                continue
+
+        if response is None:
+            if last_exception:
+                raise last_exception
+            raise RuntimeError("All fallback models failed to generate content.")
 
         # Validate JSON response into our Pydantic model
         parsed = ParsedServiceRequest.model_validate_json(response.text)

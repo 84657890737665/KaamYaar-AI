@@ -1,19 +1,16 @@
 import firebase_admin
 from firebase_admin import credentials, firestore
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-
-cred = credentials.Certificate(os.getenv("FIREBASE_CREDENTIALS"))
+# Seedha path daalo — test ke liye
+cred = credentials.Certificate("firebase-credentials.json")
 firebase_admin.initialize_app(cred)
 
 db = firestore.client()
+db.collection("test").document("ping").set({
+    "status": "connected", 
+    "app": "KaamYaar AI"
+})
+print("✅ Firebase connected!")
 
-# Test: ek document write karo
-db.collection("test").document("ping").set({"status": "connected", "app": "KaamYaar AI"})
-print("✅ Firebase connected successfully!")
-
-# Read back
 doc = db.collection("test").document("ping").get()
-print(f"✅ Read back: {doc.to_dict()}")
+print(f"✅ Read: {doc.to_dict()}")
