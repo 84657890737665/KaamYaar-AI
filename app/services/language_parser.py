@@ -6,6 +6,7 @@ from google.genai import types
 from pydantic import BaseModel, Field
 from app.config import settings
 from app.utils.language_detector import detect_language_fallback
+from app.utils.tracing import trace_agent_execution, Timer
 
 logger = logging.getLogger(__name__)
 
@@ -59,9 +60,10 @@ class LanguageParserService:
         )
 
         try:
-            response = self.client.models.generate_content(
-                model='gemini-2.0-flash',
-                contents=text,
+            with Timer() as timer:
+                response = self.client.models.generate_content(
+                    model='gemini-2.0-flash',
+                    contents=text,
                 config=types.GenerateContentConfig(
                     system_instruction=system_instruction,
                     response_mime_type="application/json",
@@ -78,7 +80,20 @@ class LanguageParserService:
                 parsed_data['language'] = detect_language_fallback(text)
                 parsed_data['language_confidence'] = 0.4
                 
-            return ParseRequestOutput(**parsed_data)
+            
+            result = ParseRequestOutput(**parsed_data)
+            
+            trace_agent_execution(
+                agent_name="language_parser",
+                input_data={"text": text},
+                output_data=parsed_data,
+                reasoning_steps=["Called gemini-2.0-flash", "Parsed JSON response"],
+                latency=timer.elapsed_ms,
+                confidence=result.confidence,
+                booking_id=None # Pre-booking phase
+            )
+            
+            return result
             
         except Exception as e:
             logger.warning(f"Failed to parse request with Gemini: {str(e)}. Using fallback data.")

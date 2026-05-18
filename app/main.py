@@ -3,9 +3,11 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
-from app.routers import parse_request, find_providers, rank_providers, pricing, booking, quality
+from app.routers import parse_request, find_providers, rank_providers, pricing, booking, quality, disputes, mobile_api, admin
+from app.middleware.tracing import TracingMiddleware
 from app.services.firestore_service import firestore_service
 
 # Proper logging configuration
@@ -44,6 +46,9 @@ app = FastAPI(
     lifespan=lifespan
 )
 
+# Add Tracing Middleware
+app.add_middleware(TracingMiddleware)
+
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
@@ -63,6 +68,12 @@ app.include_router(rank_providers.router, prefix=api_prefix)
 app.include_router(pricing.router, prefix=api_prefix)
 app.include_router(booking.router, prefix=api_prefix)
 app.include_router(quality.router, prefix=api_prefix)
+app.include_router(disputes.router, prefix=api_prefix)
+app.include_router(mobile_api.router, prefix=api_prefix)
+app.include_router(admin.router, prefix=api_prefix)
+
+# Mount Dashboard Static Files
+app.mount("/dashboard", StaticFiles(directory="dashboard", html=True), name="dashboard")
 
 @app.get("/health", tags=["health"])
 def health_check():

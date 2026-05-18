@@ -6,6 +6,7 @@ from google.cloud.firestore import Transaction, transactional
 
 from app.services.firestore_service import firestore_service
 from app.models.booking import Booking, BookingStatus, PriceBreakdown
+from app.utils.tracing import log_workflow_step
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +39,16 @@ class BookingExecutor:
             doc_ref.set(booking_data)
         else:
             logger.warning("Firestore not connected, generated mock booking data but did not save to DB.")
+            
+        log_workflow_step(
+            step_name="Booking Created",
+            booking_id=booking_id,
+            metadata={
+                "user_id": user_id,
+                "provider_id": provider_id,
+                "service_type": booking_data["service_type"]
+            }
+        )
             
         return Booking(**booking_data)
 
@@ -93,6 +104,16 @@ class BookingExecutor:
                 
             transaction.update(doc_ref, update_data)
             data.update(update_data)
+            
+            log_workflow_step(
+                step_name=f"Status Updated to {new_status_enum.value}",
+                booking_id=booking_id,
+                metadata={
+                    "previous_status": current_status.value,
+                    "location_update": location_update is not None
+                }
+            )
+            
             return Booking(**data)
             
         return _update_in_transaction(transaction, doc_ref)
