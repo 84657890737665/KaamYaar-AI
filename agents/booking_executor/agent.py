@@ -43,11 +43,12 @@ class BookingExecutorAgent(BaseAgent):
 
         Args:
             input_data: A dictionary containing:
-                - provider: ProviderCandidate or dict (top recomended provider)
+                - provider: ProviderCandidate or dict (top recommended provider)
                 - price_quote: PricingEngineOutput or dict (from Agent 4)
                 - parsed_request: ParsedServiceRequest or dict (from Agent 1)
                 - user_id: str (optional, defaults to "demo_user_001")
                 - confirmed_slot: str (e.g. "2026-05-18 10:00 AM")
+                - user_gender: str (optional, e.g. "female")
 
         Returns:
             A dictionary conforming to the BookingExecutorOutput schema.
@@ -78,10 +79,12 @@ class BookingExecutorAgent(BaseAgent):
         if isinstance(raw_price_quote, dict):
             price_breakdown_dict = raw_price_quote.get("price_breakdown", {})
             total_pkr = price_breakdown_dict.get("total", 0)
+            estimated_duration_min = raw_price_quote.get("estimated_duration_minutes", 60)
         else:
             # Pydantic model PricingEngineOutput
             price_breakdown_dict = raw_price_quote.price_breakdown.model_dump()
             total_pkr = raw_price_quote.price_breakdown.total
+            estimated_duration_min = getattr(raw_price_quote, "estimated_duration_minutes", 60)
 
         # ------------------------------------------------------------------
         # STEP 1: Generate booking_id
@@ -90,6 +93,38 @@ class BookingExecutorAgent(BaseAgent):
         timestamp_str = now_utc.strftime("%Y%m%d%H%M")
         booking_id = f"KY-{timestamp_str}-{random.randint(1000, 9999)}"
         logger.info("[%s] [Step 1/8] Generated Booking ID: %s", self.name, booking_id)
+
+        # Determine and Calculate Women Safety Protocols
+        user_gender = input_data.get("user_gender")
+        if not user_gender and isinstance(raw_parsed_request, dict):
+            user_gender = raw_parsed_request.get("user_gender")
+        if not user_gender and parsed_request:
+            user_gender = getattr(parsed_request, "user_gender", None)
+            if not user_gender and hasattr(parsed_request, "preferences") and parsed_request.preferences:
+                pref_str = " ".join(parsed_request.preferences).lower()
+                if "female" in pref_str or "aurat" in pref_str or "larki" in pref_str or "female user" in pref_str:
+                    user_gender = "female"
+                    
+        provider_gender = getattr(provider, "gender", "male")
+        
+        is_female_user_and_male_provider = (
+            str(user_gender).lower().strip() == "female" and str(provider_gender).lower().strip() == "male"
+        )
+        
+        if is_female_user_and_male_provider:
+            safety_mode = True
+            est_completion = (now_utc + timedelta(minutes=estimated_duration_min)).isoformat()
+            warning_sched = (now_utc + timedelta(minutes=estimated_duration_min + 30)).isoformat()
+            safety_contact_notified = True
+            logger.info(
+                "[%s] Women Safety Mode active: user_gender=female, provider_gender=male. Triggering safety protocols.",
+                self.name
+            )
+        else:
+            safety_mode = False
+            est_completion = None
+            warning_sched = None
+            safety_contact_notified = False
 
         # ------------------------------------------------------------------
         # STEP 2: Capture BEFORE state
@@ -112,7 +147,11 @@ class BookingExecutorAgent(BaseAgent):
             "total_pkr": total_pkr,
             "status": "confirmed",
             "created_at": now_utc.isoformat(),
-            "language": parsed_request.primary_language or "English"
+            "language": parsed_request.primary_language or "English",
+            "safety_mode": safety_mode,
+            "estimated_completion_time": est_completion,
+            "warning_scheduled_at": warning_sched,
+            "safety_contact_notified": safety_contact_notified
         }
 
         firestore_written = False
@@ -159,7 +198,8 @@ class BookingExecutorAgent(BaseAgent):
                 "provider_id": provider.provider_id,
                 "name": provider.name,
                 "skill_level": provider.skill_level,
-                "rating": provider.rating
+                "rating": provider.rating,
+                "gender": provider_gender
             },
             "service": {
                 "type": parsed_request.service_type,
@@ -171,7 +211,11 @@ class BookingExecutorAgent(BaseAgent):
                 "total_amount": total_pkr,
                 "price_breakdown": price_breakdown_dict
             },
-            "status": "confirmed"
+            "status": "confirmed",
+            "safety_mode": safety_mode,
+            "estimated_completion_time": est_completion,
+            "warning_scheduled_at": warning_sched,
+            "safety_contact_notified": safety_contact_notified
         }
         logger.info("[%s] [Step 6/8] Compiled transaction receipt.", self.name)
 
@@ -252,7 +296,11 @@ class BookingExecutorAgent(BaseAgent):
             notification_payload=notification_payload,
             receipt=receipt,
             reminder_scheduled_at=reminder_time,
-            confirmation_message=confirmation_message
+            confirmation_message=confirmation_message,
+            safety_mode=safety_mode,
+            estimated_completion_time=est_completion,
+            warning_scheduled_at=warning_sched,
+            safety_contact_notified=safety_contact_notified
         )
 
         logger.info("[%s] Booking transaction complete. Booking ID: %s", self.name, booking_id)

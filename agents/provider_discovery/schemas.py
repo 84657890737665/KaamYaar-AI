@@ -15,6 +15,8 @@ class ProviderCandidate(BaseModel):
     years_experience: int
     review_count: int
     recent_disputes: int = 0
+    is_cnic_verified: bool = True
+    gender: str = "male"
 
 class ProviderDiscoveryOutput(BaseModel):
     candidates: list[ProviderCandidate]

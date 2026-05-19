@@ -15,7 +15,8 @@ logger = logging.getLogger(__name__)
 class MatchingRankerAgent(BaseAgent):
     """
     Agent 3: Matching & Ranker Agent.
-    Takes candidate providers and ranks them using a 10-factor weighted scoring algorithm.
+    Takes candidate providers and ranks them using a weighted multi-factor scoring algorithm.
+    Supports a dynamic 'women_safety_mode' when requested by female users.
     Returns the top 3 matches with detailed reasoning.
     """
     name = "matching_ranker"
@@ -36,26 +37,25 @@ class MatchingRankerAgent(BaseAgent):
             "urgency_match_score": 0.01
         }
 
-    def _calculate_scores(self, candidate: ProviderCandidate, max_distance: float, max_price: float, urgency: str) -> Dict[str, float]:
-        # 1. distance_score (weight=0.15)
-        # Assuming max practical distance is max_distance. Closer = higher score
+    def _calculate_scores(self, candidate: ProviderCandidate, max_distance: float, max_price: float, urgency: str, weights: Dict[str, float], women_safety_mode: bool = False) -> Dict[str, float]:
+        # 1. distance_score
         dist_val = max_distance if max_distance > 0 else 50.0
         dist_score = 1.0 - (candidate.distance_km / dist_val)
         dist_score = max(0.0, min(1.0, dist_score))
         
-        # 2. availability_score (weight=0.15)
+        # 2. availability_score
         avail_score = 1.0 if candidate.is_available else 0.0
         
-        # 3. rating_score (weight=0.20)
+        # 3. rating_score
         rating_score = candidate.rating / 5.0
         
-        # 4. on_time_score (weight=0.15)
+        # 4. on_time_score
         on_time_score = candidate.on_time_score
         
-        # 5. cancellation_score (weight=0.10)
+        # 5. cancellation_score
         cancellation_score = 1.0 - candidate.cancellation_rate
         
-        # 6. skill_match_score (weight=0.10)
+        # 6. skill_match_score
         if candidate.skill_level == "expert":
             skill_score = 1.0
         elif candidate.skill_level == "intermediate":
@@ -63,35 +63,39 @@ class MatchingRankerAgent(BaseAgent):
         else:
             skill_score = 0.4
             
-        # 7. price_score (weight=0.08)
-        # Lower base_rate = higher score
+        # 7. price_score
         p_val = max_price if max_price > 0 else candidate.base_rate_pkr
         price_score = 1.0 - (candidate.base_rate_pkr / p_val) if p_val > 0 else 1.0
         price_score = max(0.0, min(1.0, price_score))
         
-        # 8. experience_score (weight=0.04)
+        # 8. experience_score
         exp_score = min(candidate.years_experience, 10) / 10.0
         
-        # 9. review_volume_score (weight=0.02)
+        # 9. review_volume_score
         review_score = min(candidate.review_count, 50) / 50.0
         
-        # 10. urgency_match_score (weight=0.01)
+        # 10. urgency_match_score
         urgency = urgency or ""
         urgency_score = 1.0 if urgency.lower() in ['high', 'emergency'] and candidate.skill_level == "expert" else 0.0
         
+        # 11. safety_verified_score
+        safety_score = 1.0 if getattr(candidate, "is_cnic_verified", False) else 0.0
+
         scores = {
-            "distance_score": dist_score * self.weights["distance_score"],
-            "availability_score": avail_score * self.weights["availability_score"],
-            "rating_score": rating_score * self.weights["rating_score"],
-            "on_time_score": on_time_score * self.weights["on_time_score"],
-            "cancellation_score": cancellation_score * self.weights["cancellation_score"],
-            "skill_match_score": skill_score * self.weights["skill_match_score"],
-            "price_score": price_score * self.weights["price_score"],
-            "experience_score": exp_score * self.weights["experience_score"],
-            "review_volume_score": review_score * self.weights["review_volume_score"],
-            "urgency_match_score": urgency_score * self.weights["urgency_match_score"]
+            "distance_score": dist_score * weights["distance_score"],
+            "availability_score": avail_score * weights["availability_score"],
+            "rating_score": rating_score * weights["rating_score"],
+            "on_time_score": on_time_score * weights["on_time_score"],
+            "cancellation_score": cancellation_score * weights["cancellation_score"],
+            "skill_match_score": skill_score * weights["skill_match_score"],
+            "price_score": price_score * weights["price_score"],
+            "experience_score": exp_score * weights["experience_score"],
+            "review_volume_score": review_score * weights["review_volume_score"],
+            "urgency_match_score": urgency_score * weights["urgency_match_score"]
         }
-        
+        if women_safety_mode:
+            scores["safety_verified_score"] = safety_score * weights["safety_verified_score"]
+            
         logger.debug(
             "[%s] Scores for %s: dist=%.2f avail=%.2f rating=%.2f ontime=%.2f cancel=%.2f skill=%.2f price=%.2f",
             self.name, candidate.name, scores["distance_score"], scores["availability_score"],
@@ -100,13 +104,13 @@ class MatchingRankerAgent(BaseAgent):
         )
         return scores
 
-    def _generate_individual_reasoning(self, scores_breakdown: Dict[str, float], rank: int, provider: ProviderCandidate) -> str:
+    def _generate_individual_reasoning(self, scores_breakdown: Dict[str, float], rank: int, provider: ProviderCandidate, weights: Dict[str, float], women_safety_mode: bool = False) -> str:
         """Programmatic simple English reasoning for individual provider."""
         # Calculate percentage of max for each score
-        pct = {k: (v / self.weights[k] if self.weights[k] > 0 else 0) for k, v in scores_breakdown.items()}
+        pct = {k: (v / weights[k] if weights[k] > 0 else 0) for k, v in scores_breakdown.items()}
         
-        # Get top 2 reasons (excluding availability as it's a binary requirement usually)
-        valid_reasons = {k: v for k, v in pct.items() if k != "availability_score"}
+        # Get top 2 reasons (excluding availability & safety as safety is appended separately)
+        valid_reasons = {k: v for k, v in pct.items() if k not in ["availability_score", "safety_verified_score"]}
         top_reasons = sorted(valid_reasons.keys(), key=lambda k: valid_reasons[k], reverse=True)[:2]
         
         reason_map = {
@@ -123,9 +127,12 @@ class MatchingRankerAgent(BaseAgent):
         r1 = reason_map.get(top_reasons[0], "overall strong performance")
         r2 = reason_map.get(top_reasons[1], "reliability")
         
-        return f"{provider.name} is ranked #{rank} primarily due to their {r1} and {r2}."
+        reason_text = f"{provider.name} is ranked #{rank} primarily due to their {r1} and {r2}."
+        if women_safety_mode:
+            reason_text += " Provider selected with CNIC verification for enhanced safety."
+        return reason_text
 
-    def _generate_reasoning_summary(self, primary_language: str, service_type: str, top_candidates: List[dict]) -> str:
+    def _generate_reasoning_summary(self, primary_language: str, service_type: str, top_candidates: List[dict], women_safety_mode: bool = False) -> str:
         """Uses Gemini to generate a comparison summary in the user's detected language."""
         if not top_candidates:
             return "No providers available."
@@ -137,6 +144,7 @@ class MatchingRankerAgent(BaseAgent):
         Context:
         - Primary Language requested by user: {primary_language}
         - Service requested: {service_type}
+        {"- Women Safety Mode: Active (all candidates are CNIC-verified for safety)" if women_safety_mode else ""}
         
         Top 3 Ranked Providers with their scores:
         {json.dumps(top_candidates, indent=2)}
@@ -186,7 +194,7 @@ class MatchingRankerAgent(BaseAgent):
             input_data: Must contain:
                 - "candidates": List of ProviderCandidate dicts from Agent 2.
                 - "parsed_request": ParsedServiceRequest dict from Agent 1.
-                - "user_preferences": dict (optional)
+                - "user_gender": str (optional, triggers 'women_safety_mode' if equal to 'female')
         """
         logger.info("[%s] Starting ranking process...", self.name)
         
@@ -209,12 +217,39 @@ class MatchingRankerAgent(BaseAgent):
         primary_language = parsed_request.get("primary_language", "English")
         service_type = parsed_request.get("service_type", "service")
         
+        # Check women safety mode based on user_gender
+        user_gender = input_data.get("user_gender")
+        if not user_gender and isinstance(parsed_request, dict):
+            user_gender = parsed_request.get("user_gender")
+            
+        women_safety_mode = (user_gender == 'female')
+        
+        if women_safety_mode:
+            # Filter candidates: only is_cnic_verified == True
+            candidates = [c for c in candidates if getattr(c, "is_cnic_verified", False) is True]
+            
+        if not candidates:
+            return {
+                "ranked_providers": [],
+                "top_recommendation": None,
+                "reasoning_summary": "No verified providers available for safety mode in this area.",
+                "ranking_method": "weighted_multi_factor",
+                "fallback_message": "No candidates found — try expanding search radius."
+            }
+
+        # Calculate dynamic weights
+        if women_safety_mode:
+            weights = {k: v * 0.85 for k, v in self.weights.items()}
+            weights["safety_verified_score"] = 0.15
+        else:
+            weights = self.weights.copy()
+            
         max_dist = max([c.distance_km for c in candidates] + [1.0])
         max_price = max([c.base_rate_pkr for c in candidates] + [1.0])
         
         scored_candidates = []
         for c in candidates:
-            breakdown = self._calculate_scores(c, max_distance=max_dist, max_price=max_price, urgency=urgency)
+            breakdown = self._calculate_scores(c, max_distance=max_dist, max_price=max_price, urgency=urgency, weights=weights, women_safety_mode=women_safety_mode)
             total_score = sum(breakdown.values())
             scored_candidates.append((total_score, breakdown, c))
             
@@ -227,7 +262,7 @@ class MatchingRankerAgent(BaseAgent):
         ranked_providers = []
         for i, (total, breakdown, candidate) in enumerate(top_3):
             rank = i + 1
-            reasoning = self._generate_individual_reasoning(breakdown, rank, candidate)
+            reasoning = self._generate_individual_reasoning(breakdown, rank, candidate, weights, women_safety_mode)
             
             # Determine risk flag based on high cancellation rate (>30%) or high recent disputes (>=3)
             risk_flag = candidate.cancellation_rate > 0.30 or getattr(candidate, "recent_disputes", 0) >= 3
@@ -254,12 +289,13 @@ class MatchingRankerAgent(BaseAgent):
                 "rating": rp.provider.rating,
                 "on_time_score": rp.provider.on_time_score,
                 "skill_level": rp.provider.skill_level,
-                "base_rate_pkr": rp.provider.base_rate_pkr
+                "base_rate_pkr": rp.provider.base_rate_pkr,
+                "is_cnic_verified": getattr(rp.provider, "is_cnic_verified", False)
             }
             for rp in ranked_providers
         ]
         
-        reasoning_summary = self._generate_reasoning_summary(primary_language, service_type, summary_input)
+        reasoning_summary = self._generate_reasoning_summary(primary_language, service_type, summary_input, women_safety_mode)
         
         output = MatchingRankerOutput(
             ranked_providers=ranked_providers,

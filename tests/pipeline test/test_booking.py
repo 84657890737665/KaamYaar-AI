@@ -202,6 +202,58 @@ class TestBookingExecutorAgent(unittest.TestCase):
             self.assertIn("محترم کسٹمر، آپ کا آرڈر کامیابی سے بک ہو گیا ہے۔", result["confirmation_message"])
             self.assertIn("Sajid Plumber", result["confirmation_message"])
 
+    @patch("agents.booking_executor.agent.get_firestore_client")
+    def test_booking_executor_women_safety_mode(self, mock_get_firestore):
+        """Test that safety mode protocols are triggered for a female user booking a male provider."""
+        mock_get_firestore.return_value = None  # Offline mode
+
+        # Set user_gender to female
+        input_data = {
+            "provider": MOCK_PROVIDER,  # defaults to male
+            "parsed_request": MOCK_PARSED_REQUEST,
+            "price_quote": {
+                "provider_id": "prov-555",
+                "estimated_duration_minutes": 90,
+                "price_breakdown": {
+                    "base_rate": 1200,
+                    "distance_cost": 63,
+                    "urgency_premium": 300,
+                    "complexity_addon": 600,
+                    "loyalty_discount": 0,
+                    "surge": 0,
+                    "total": 2163
+                }
+            },
+            "confirmed_slot": "2026-05-19 10:00 AM",
+            "user_gender": "female"
+        }
+
+        mock_response = MagicMock()
+        mock_response.text = "Mocked message"
+
+        with patch.object(self.agent._llm_client.models, 'generate_content', return_value=mock_response):
+            result = self.agent.run(input_data)
+
+            # Assert safety protocol fields
+            self.assertTrue(result["safety_mode"])
+            self.assertTrue(result["safety_contact_notified"])
+            self.assertIsNotNone(result["estimated_completion_time"])
+            self.assertIsNotNone(result["warning_scheduled_at"])
+
+            # Verify that warning_scheduled_at is exactly 30 minutes after estimated_completion_time
+            from datetime import datetime
+            est_comp = datetime.fromisoformat(result["estimated_completion_time"])
+            warn_time = datetime.fromisoformat(result["warning_scheduled_at"])
+            diff = warn_time - est_comp
+            self.assertEqual(diff.total_seconds(), 1800)  # 30 minutes
+
+            # Verify receipt contains safety fields
+            receipt = result["receipt"]
+            self.assertTrue(receipt["safety_mode"])
+            self.assertTrue(receipt["safety_contact_notified"])
+            self.assertEqual(receipt["estimated_completion_time"], result["estimated_completion_time"])
+            self.assertEqual(receipt["warning_scheduled_at"], result["warning_scheduled_at"])
+
 if __name__ == "__main__":
     print("\n" + "="*70)
     print("KAAMYAAR AI — Booking Executor Agent Unit & Fallback Tests")
