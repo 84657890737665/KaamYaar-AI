@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 from fastapi.staticfiles import StaticFiles
 
 from app.config import settings
-from app.routers import parse_request, find_providers, rank_providers, pricing, booking, quality, disputes, mobile_api, admin
+from app.routers import parse_request, find_providers, rank_providers, pricing, booking, quality, disputes, mobile_api, admin, provider_verification, time_estimation, safety_timer, emergency_alert, safety, calling
 from app.middleware.tracing import TracingMiddleware
 from app.services.firestore_service import firestore_service
 
@@ -71,6 +71,12 @@ app.include_router(quality.router, prefix=api_prefix)
 app.include_router(disputes.router, prefix=api_prefix)
 app.include_router(mobile_api.router, prefix=api_prefix)
 app.include_router(admin.router, prefix=api_prefix)
+app.include_router(provider_verification.router, prefix=api_prefix)
+app.include_router(time_estimation.router, prefix=api_prefix)
+app.include_router(safety_timer.router, prefix=api_prefix)
+app.include_router(emergency_alert.router, prefix=api_prefix)
+app.include_router(safety.router, prefix=api_prefix)
+app.include_router(calling.router, prefix=api_prefix)
 
 # Mount Dashboard Static Files
 app.mount("/dashboard", StaticFiles(directory="dashboard", html=True), name="dashboard")

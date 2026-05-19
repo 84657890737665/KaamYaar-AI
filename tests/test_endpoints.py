@@ -83,7 +83,8 @@ def test_rank_providers():
     response = client.post("/api/v1/rank-providers", json=payload)
     assert response.status_code == 200
     data = response.json()
-    assert len(data) == 1
-    assert "total_score" in data[0]
-    assert "reasoning_text" in data[0]
-    assert "rating_score" in data[0]
+    assert "ranked_providers" in data
+    assert len(data["ranked_providers"]) == 1
+    assert "ranking_score" in data["ranked_providers"][0]
+    assert "reasoning_text" in data["ranked_providers"][0]
+    assert "rating_score" in data["ranked_providers"][0]["factors"]

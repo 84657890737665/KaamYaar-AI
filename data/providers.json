@@ -16,7 +16,16 @@
     "skills": [
       "Sanitary Fittings",
       "Leak Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-4539704-1",
+    "mobile_number": "0300-6279418",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "543e1ba5-4301-4ca0-945b-c3980c33d118",
@@ -38,7 +47,16 @@
       "O/A Levels",
       "Urdu",
       "Computer Science"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-4567281-1",
+    "mobile_number": "0300-9375710",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "e99a9af0-9a28-48bf-bbd5-419cc261c9ef",
@@ -58,7 +76,16 @@
       "Urdu",
       "Mathematics",
       "Physics"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-7637601-1",
+    "mobile_number": "0300-8698256",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "a0be4afa-d0e4-4e5b-8455-6bb20677f23b",
@@ -80,7 +107,16 @@
       "Inverter AC Specialist",
       "General Servicing",
       "AC Installation"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3396987-1",
+    "mobile_number": "0300-5443951",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "8965d552-bc9b-4cbd-9f83-499542354b6f",
@@ -101,7 +137,16 @@
       "Inverter AC Specialist",
       "Compressor Repair",
       "General Servicing"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3342608-1",
+    "mobile_number": "0300-5137722",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "af6d06a1-b8c9-4bec-ba5e-0831628e4d7e",
@@ -120,7 +165,16 @@
     "skills": [
       "O/A Levels",
       "English"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-5408072-1",
+    "mobile_number": "0300-8187926",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "female"
   },
   {
     "id": "37ba4f72-3633-43e4-b2f3-078a3409919e",
@@ -140,7 +194,16 @@
       "Inverter AC Specialist",
       "AC Installation",
       "Compressor Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-7700828-1",
+    "mobile_number": "0300-7073292",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "83a40459-4d17-401b-836d-4404c0b7fa26",
@@ -161,7 +224,16 @@
       "Engine Repair",
       "Bike Repair",
       "Car AC Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-4679591-1",
+    "mobile_number": "0300-3320821",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "da0c6886-4e4e-4d4a-8e37-11c77e71c099",
@@ -181,7 +253,16 @@
       "English",
       "Computer Science",
       "Chemistry"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9548432-1",
+    "mobile_number": "0300-9279821",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "98f0911f-c96a-4b1c-9b38-22042ed582f9",
@@ -200,7 +281,16 @@
     "skills": [
       "Gas Refill",
       "AC Installation"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2525206-1",
+    "mobile_number": "0300-1790481",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "a9dfd2b3-d45d-448e-82b2-c0327131edaf",
@@ -220,7 +310,16 @@
       "Pipe Fitting",
       "Sanitary Fittings",
       "Water Heater Installation"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2839607-1",
+    "mobile_number": "0300-3564251",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "85e21e26-3b9a-440e-ac11-e6f8f6738e91",
@@ -240,7 +339,16 @@
       "Matric/FSc",
       "Physics",
       "English"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3684052-1",
+    "mobile_number": "0300-8082668",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "db17670c-9860-4332-aef4-0806d3ba5afe",
@@ -260,7 +368,16 @@
       "Chemistry",
       "English",
       "O/A Levels"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2065818-1",
+    "mobile_number": "0300-7455324",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "8192949b-264e-44f2-9eaa-de2a51132dca",
@@ -282,7 +399,16 @@
       "Matric/FSc",
       "O/A Levels",
       "Mathematics"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-7402509-1",
+    "mobile_number": "0300-8852574",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "050b7643-e270-418f-bf68-f19702774806",
@@ -302,7 +428,16 @@
       "General Servicing",
       "AC Installation",
       "Compressor Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9877065-1",
+    "mobile_number": "0300-5218028",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "be3cd479-0145-4d83-801b-5689149bec7b",
@@ -323,7 +458,16 @@
       "Oil Change",
       "Brake Pad Replacement",
       "Bike Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-1192619-1",
+    "mobile_number": "0300-2921859",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "07e11b43-6962-444a-b985-679135c6e69e",
@@ -343,7 +487,16 @@
       "Water Heater Installation",
       "Sanitary Fittings",
       "Pipe Fitting"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-5476583-1",
+    "mobile_number": "0300-6707197",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "a93d01e3-a707-4ca5-81b3-c8f5100ef633",
@@ -364,7 +517,16 @@
       "Gas Refill",
       "Compressor Repair",
       "General Servicing"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2871534-1",
+    "mobile_number": "0300-5924115",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "d9f169a2-4e27-4c97-9b86-b77f8202bf44",
@@ -385,7 +547,16 @@
       "General Servicing",
       "Compressor Repair",
       "Inverter AC Specialist"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-8294150-1",
+    "mobile_number": "0300-3653446",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "01fbd5f6-c826-42d3-95d7-457a45ca65e7",
@@ -406,7 +577,16 @@
       "Sanitary Fittings",
       "Water Heater Installation",
       "Pipe Fitting"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-8612220-1",
+    "mobile_number": "0300-1054447",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "22fed826-a413-4363-9625-d772e1036b83",
@@ -426,7 +606,16 @@
       "Urdu",
       "Physics",
       "Computer Science"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-5418934-1",
+    "mobile_number": "0300-9398441",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "female"
   },
   {
     "id": "554cd42f-76ff-4059-8935-32912d4756ae",
@@ -448,7 +637,16 @@
       "Pipe Fitting",
       "Leak Repair",
       "Drain Cleaning"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3997281-1",
+    "mobile_number": "0300-9517485",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "d7a08f57-9f39-4915-b32e-5ad766d81761",
@@ -470,7 +668,16 @@
       "Engine Repair",
       "Suspension",
       "Brake Pad Replacement"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2785277-1",
+    "mobile_number": "0300-6007072",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "bb4dee7b-a675-4ee5-a807-fa3be44f59d1",
@@ -489,7 +696,16 @@
     "skills": [
       "Water Heater Installation",
       "Sanitary Fittings"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9517169-1",
+    "mobile_number": "0300-4337174",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "female"
   },
   {
     "id": "1e65aea3-d8af-4a31-9d97-c8cb7d2a3e36",
@@ -510,7 +726,16 @@
       "Matric/FSc",
       "Urdu",
       "Computer Science"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3564217-1",
+    "mobile_number": "0300-7273233",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "female"
   },
   {
     "id": "d3a9560c-a86a-47b6-b5aa-3d2eb2446f2c",
@@ -530,7 +755,16 @@
       "Urdu",
       "Physics",
       "O/A Levels"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3710343-1",
+    "mobile_number": "0300-9897858",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "5a78dedd-f3bb-4abb-8fc0-5509181cca25",
@@ -550,7 +784,16 @@
       "Pipe Fitting",
       "Sanitary Fittings",
       "Leak Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-1009594-1",
+    "mobile_number": "0300-6438436",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "6f3d8382-9131-41cc-85f9-7c16e538d855",
@@ -571,7 +814,16 @@
       "Suspension",
       "Tuning",
       "Car AC Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9197443-1",
+    "mobile_number": "0300-1326765",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "86962c9a-0e29-43ad-a899-0919e10b3aaf",
@@ -592,7 +844,16 @@
       "Chemistry",
       "Urdu",
       "Mathematics"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2876828-1",
+    "mobile_number": "0300-7089806",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "12629f91-20b3-42e9-aea8-3e4886033ed4",
@@ -611,7 +872,16 @@
     "skills": [
       "Generator Repair",
       "Lighting"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-6159230-1",
+    "mobile_number": "0300-5017343",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "female"
   },
   {
     "id": "prov_031",
@@ -631,7 +901,16 @@
       "Pipe Fitting",
       "Leak Repair",
       "Sanitary"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-1971823-1",
+    "mobile_number": "0300-5041154",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "female"
   },
   {
     "id": "prov_032",
@@ -650,7 +929,16 @@
     "skills": [
       "Motor Installation",
       "Geyser Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2321324-1",
+    "mobile_number": "0300-2437026",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "prov_033",
@@ -669,7 +957,16 @@
     "skills": [
       "Leak Repair",
       "Drain Unblocking"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9153566-1",
+    "mobile_number": "0300-2161193",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "prov_034",
@@ -688,7 +985,16 @@
     "skills": [
       "Pipe Fitting",
       "Geyser Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9937326-1",
+    "mobile_number": "0300-3109911",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "female"
   },
   {
     "id": "prov_035",
@@ -707,7 +1013,16 @@
     "skills": [
       "Wiring",
       "UPS Setup"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3154051-1",
+    "mobile_number": "0300-8973915",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "prov_036",
@@ -726,7 +1041,16 @@
     "skills": [
       "Solar Installation",
       "Switchboard Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3770370-1",
+    "mobile_number": "0300-5446912",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "female"
   },
   {
     "id": "prov_037",
@@ -745,7 +1069,16 @@
     "skills": [
       "Wiring",
       "Appliance Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9852897-1",
+    "mobile_number": "0300-8099076",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "female"
   },
   {
     "id": "prov_038",
@@ -764,7 +1097,16 @@
     "skills": [
       "UPS Setup",
       "Switchboard Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-4553384-1",
+    "mobile_number": "0300-4374754",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "prov_039",
@@ -783,7 +1125,16 @@
     "skills": [
       "Gas Refill",
       "AC Servicing"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-6229731-1",
+    "mobile_number": "0300-7693979",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "prov_040",
@@ -802,7 +1153,16 @@
     "skills": [
       "Installation",
       "Compressor Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-7264956-1",
+    "mobile_number": "0300-8350099",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "prov_041",
@@ -821,7 +1181,16 @@
     "skills": [
       "Gas Refill",
       "AC Servicing"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9683481-1",
+    "mobile_number": "0300-8574680",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "prov_042",
@@ -840,7 +1209,16 @@
     "skills": [
       "Compressor Repair",
       "Gas Refill"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-3030113-1",
+    "mobile_number": "0300-5159166",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "prov_043",
@@ -859,7 +1237,16 @@
     "skills": [
       "Cabinets",
       "Wood Polish"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-4769795-1",
+    "mobile_number": "0300-2074176",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "prov_044",
@@ -878,7 +1265,16 @@
     "skills": [
       "Furniture Repair",
       "Door Fitting"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-6672134-1",
+    "mobile_number": "0300-1352896",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "rejected",
+    "gender": "male"
   },
   {
     "id": "prov_045",
@@ -897,7 +1293,16 @@
     "skills": [
       "Cabinets",
       "Furniture Repair"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-4860684-1",
+    "mobile_number": "0300-4694634",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "prov_046",
@@ -916,7 +1321,16 @@
     "skills": [
       "Wood Polish",
       "Door Fitting"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-1120642-1",
+    "mobile_number": "0300-2191066",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "prov_047",
@@ -935,7 +1349,16 @@
     "skills": [
       "Texture Paint",
       "Wall Painting"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-1987737-1",
+    "mobile_number": "0300-4841005",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "prov_048",
@@ -954,7 +1377,16 @@
     "skills": [
       "Distemper",
       "Exterior Paint"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-2130789-1",
+    "mobile_number": "0300-1527021",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "male"
   },
   {
     "id": "prov_049",
@@ -973,7 +1405,16 @@
     "skills": [
       "Wall Painting",
       "Distemper"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-6543670-1",
+    "mobile_number": "0300-2188789",
+    "is_cnic_verified": true,
+    "is_face_verified": true,
+    "verification_status": "verified",
+    "gender": "male"
   },
   {
     "id": "prov_050",
@@ -992,6 +1433,15 @@
     "skills": [
       "Texture Paint",
       "Exterior Paint"
-    ]
+    ],
+    "cnic_front_url": "https://example.com/cnic_front.jpg",
+    "cnic_back_url": "https://example.com/cnic_back.jpg",
+    "face_photo_url": "https://example.com/face.jpg",
+    "cnic_number": "35201-9626108-1",
+    "mobile_number": "0300-4993055",
+    "is_cnic_verified": false,
+    "is_face_verified": false,
+    "verification_status": "pending",
+    "gender": "female"
   }
 ]

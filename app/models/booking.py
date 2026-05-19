@@ -10,6 +10,7 @@ class BookingStatus(str, Enum):
     IN_PROGRESS = "IN_PROGRESS"
     COMPLETED = "COMPLETED"
     CANCELLED = "CANCELLED"
+    SAFETY_CONCERN_RAISED = "safety_concern_raised"
 
 class PriceBreakdown(BaseModel):
     base_fare: float = Field(..., ge=0.0, description="Base service charge")
@@ -29,3 +30,11 @@ class Booking(BaseFirestoreModel):
     after_state: Optional[Dict[str, Any]] = Field(default=None, description="Snapshot of state after completion")
     last_location: Optional[Dict[str, float]] = Field(default=None, description="Last recorded location of provider")
     updated_at: datetime = Field(default_factory=lambda: datetime.now(timezone.utc), description="Timestamp of the last update")
+    
+    # M4: Safety Timer + Warning System
+    safety_timer_active: bool = Field(default=False, description="Whether safety timer is active")
+    safety_alert_sent: bool = Field(default=False, description="Whether safety alert has been sent")
+    safety_alert_sent_at: Optional[datetime] = Field(default=None, description="Timestamp when safety alert was sent")
+    
+    # M5: Emergency Alert
+    emergency_alert_id: Optional[str] = Field(default=None, description="ID of the emergency alert if raised")

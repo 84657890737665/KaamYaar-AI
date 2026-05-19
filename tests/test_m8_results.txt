@@ -1,0 +1,61 @@
+==================================================
+M8 CALLING AGENT TEST REPORT
+==================================================
+
+TEST 1: CallingAgent Unit Tests
+- validate_inputs(): PASS ✅
+- validate_inputs() missing fields: Error: PASS ✅
+- generate_call_id(): PASS ✅
+- create_call_context(): PASS ✅
+- make_call(): PASS ✅
+- store_in_firestore(): PASS ✅
+
+TEST 2: Agent Flow Tests
+- Full run() method: PASS ✅
+- Output structure correct: PASS ✅
+- call_status 'completed': PASS ✅
+- Unique call_sid: PASS ✅
+- Non-empty transcript: PASS ✅
+
+TEST 3: Trigger Call Endpoint
+- Valid request: 200: PASS ✅
+- Response fields complete: PASS ✅
+- Invalid booking_id: 404: PASS ✅
+- Missing fields: 422: PASS ✅
+- Firestore record created: PASS ✅
+
+TEST 4: Get Logs Endpoint
+- Returns all calls: PASS ✅
+- total_calls count correct: PASS ✅
+- Invalid booking_id: 404: PASS ✅
+- call_logs structure correct: PASS ✅
+
+TEST 5: Get Details Endpoint
+- Returns call details: 200: PASS ✅
+- All fields present: PASS ✅
+- Invalid call_id: 404: PASS ✅
+
+TEST 6: Integration Tests
+- Trigger -> Logs -> Details: PASS ✅
+- Multiple calls: PASS ✅
+- Booking updated: PASS ✅
+- Transcript captured: PASS ✅
+- Contact details preserved: PASS ✅
+
+TEST 7: Firestore Collection Tests
+- Schema correct: PASS ✅
+- All fields stored: PASS ✅
+- Timestamps recorded: PASS ✅
+- Query by booking_id: PASS ✅
+- Query by call_id: PASS ✅
+
+TEST 8: Edge Cases
+- Invalid phone format: Handled: PASS ✅
+- Missing contact: Handled: PASS ✅
+- Provider incomplete: Handled: PASS ✅
+- Call exists: Handled: PASS ✅
+- Concurrent calls: PASS ✅
+
+==================================================
+FINAL RESULT: ✅ ALL TESTS PASSED (100%)
+==================================================

@@ -79,7 +79,9 @@ def test_end_to_end_workflow():
     }
     rank_res = client.post("/api/v1/rank-providers", json=rank_payload)
     assert rank_res.status_code == 200, f"Rank providers failed: {rank_res.text}"
-    ranked_providers = rank_res.json()
+    rank_data = rank_res.json()
+    assert "ranked_providers" in rank_data
+    ranked_providers = rank_data["ranked_providers"]
     assert len(ranked_providers) > 0
     top_provider = ranked_providers[0]
 

@@ -78,9 +78,10 @@ def test_st4_ranking_complexity(mock_auth_headers):
     assert response.status_code == 200, f"Expected 200, got {response.status_code}. Response: {response.text}"
     
     data = response.json()
-    assert isinstance(data, list), "Response should be a list of ranked providers"
-    assert len(data) == 1000, f"Expected 1000 providers, got {len(data)}"
-    assert "total_score" in data[0], "total_score missing from ranked provider"
+    assert "ranked_providers" in data, "Response should contain ranked_providers key"
+    ranked_providers = data["ranked_providers"]
+    assert len(ranked_providers) == 1000, f"Expected 1000 providers, got {len(ranked_providers)}"
+    assert "ranking_score" in ranked_providers[0], "ranking_score missing from ranked provider"
     
     print(f"\n[ST4] Ranking 1000 providers via TestClient took {latency:.2f} ms")
 
