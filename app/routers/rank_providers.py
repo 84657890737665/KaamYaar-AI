@@ -111,8 +111,6 @@ async def rank_providers(request: RankProvidersInput):
                 cancellation_score=rd["factors"]["cancellation_score"],
                 skills_match_score=rd["factors"]["skills_match_score"]
             ),
-            is_cnic_verified=is_verified,
-            is_face_verified=is_face_verified,
             safety_badge="verified" if is_verified else "unverified",
             confidence_level=rd["confidence_level"],
             reasoning_text=rd["reasoning_text"]

@@ -87,6 +87,54 @@ class FirestoreService:
         self.db.collection(collection_name).document(doc_id).delete()
         return True
 
+    def create_document(self, collection: str, document_id: str, data: dict) -> bool:
+        '''Create new document in Firestore'''
+        try:
+            self.db.collection(collection).document(document_id).set(data)
+            return True
+        except Exception as e:
+            print(f'Error creating document in {collection}: {e}')
+            return False
+
+    def update_document(self, collection: str, document_id: str, data: dict) -> bool:
+        '''Update existing document in Firestore'''
+        try:
+            self.db.collection(collection).document(document_id).update(data)
+            return True
+        except Exception as e:
+            print(f'Error updating document in {collection}: {e}')
+            return False
+
+    def get_document(self, collection: str, document_id: str) -> dict:
+        '''Get document by ID from Firestore'''
+        try:
+            doc = self.db.collection(collection).document(document_id).get()
+            return doc.to_dict() if doc.exists else None
+        except Exception as e:
+            print(f'Error getting document from {collection}: {e}')
+            return None
+
+    def delete_document(self, collection: str, document_id: str) -> bool:
+        '''Delete document from Firestore'''
+        try:
+            self.db.collection(collection).document(document_id).delete()
+            return True
+        except Exception as e:
+            print(f'Error deleting document from {collection}: {e}')
+            return False
+
+    def query_documents(self, collection: str, filters: list) -> list:
+        '''Query documents in Firestore with simple filters'''
+        try:
+            query = self.db.collection(collection)
+            for f in filters:
+                query = query.where(f["field"], f["operator"], f["value"])
+            docs = query.stream()
+            return [doc.to_dict() for doc in docs]
+        except Exception as e:
+            print(f'Error querying documents from {collection}: {e}')
+            return []
+
     # Seed mock data
     def seed_mock_data(self):
         """Uploads all mock data to Firestore using batched writes."""

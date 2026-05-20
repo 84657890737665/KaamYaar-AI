@@ -81,22 +81,22 @@ app.include_router(calling.router, prefix=api_prefix)
 # Mount Dashboard Static Files
 app.mount("/dashboard", StaticFiles(directory="dashboard", html=True), name="dashboard")
 
-@app.get("/health", tags=["health"])
-def health_check():
-    """
-    Health check endpoint to verify API and Firestore connection status.
-    """
-    is_connected = firestore_service.db is not None
-    db_status = "connected" if is_connected else "disconnected"
-    
-    response_data = {
-        "status": "ok" if is_connected else "degraded", 
-        "service": "kaamyaar-backend", 
-        "database": db_status
+@app.get('/')
+async def root():
+    '''Root endpoint - API health check'''
+    return {
+        'message': 'KaamYaar API is running',
+        'status': 'healthy',
+        'version': '1.0.0',
+        'features': [
+            'Women Safety (M1-M8)',
+            'Provider Verification',
+            'Time Estimation',
+            'Emergency Alerts'
+        ]
     }
-    
-    # Return 200 OK even if DB is down to signify API is responsive, 
-    # but indicate 'degraded' status. Alternatively, 503 can be used for strict liveness checks.
-    status_code = status.HTTP_200_OK if is_connected else status.HTTP_503_SERVICE_UNAVAILABLE
-    
-    return JSONResponse(status_code=status_code, content=response_data)
+
+@app.get('/health')
+async def health_check():
+    '''Health check endpoint'''
+    return {'status': 'ok', 'message': 'API is healthy'}
