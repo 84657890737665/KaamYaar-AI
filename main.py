@@ -116,3 +116,8 @@ async def emergency_alert(data: dict):
         "booking_id": data.get("booking_id"),
         "message": "Trusted contact ko notify kar diya gaya"
     }
+port = int(os.environ.get("PORT", 8080))
+
+if __name__ == "__main__":
+    import uvicorn
+    uvicorn.run(app, host="0.0.0.0", port=port)
