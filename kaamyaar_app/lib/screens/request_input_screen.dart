@@ -444,7 +444,55 @@ class _RequestInputScreenState extends State<RequestInputScreen> {
                 ),
               )),
 
-          const SizedBox(height: 100),
+          const SizedBox(height: 24),
+
+          // Find Providers Button
+          SizedBox(
+            width: double.infinity,
+            height: 60,
+            child: Container(
+              decoration: BoxDecoration(
+                gradient: const LinearGradient(
+                  colors: [Color(0xFF1565C0), Color(0xFF1976D2)],
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: const Color(0xFF1565C0).withOpacity(0.4),
+                    blurRadius: 15,
+                    offset: const Offset(0, 5),
+                  ),
+                ],
+              ),
+              child: ElevatedButton.icon(
+                onPressed: _isLoading ? null : _processRequest,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.transparent,
+                  shadowColor: Colors.transparent,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16)),
+                ),
+                icon: _isLoading
+                    ? const SizedBox(
+                        width: 20,
+                        height: 20,
+                        child: CircularProgressIndicator(
+                            color: Colors.white, strokeWidth: 2),
+                      )
+                    : const Icon(Icons.search, color: Colors.white),
+                label: Text(
+                  _isLoading ? 'Dhundh raha hun...' : 'Providers Dhundho 🔍',
+                  style: GoogleFonts.poppins(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 30),
         ],
       ),
     );
