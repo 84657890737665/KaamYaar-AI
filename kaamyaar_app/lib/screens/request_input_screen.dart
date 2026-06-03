@@ -299,7 +299,7 @@ class _RequestInputScreenState extends State<RequestInputScreen> {
                 // Language chips
                 Wrap(
                   spacing: 8,
-                  children: ['اردو', 'Roman Urdu', 'English', 'پنجابی', 'سندھی', 'پشتو']
+                  children: ['اردو', 'Roman Urdu', 'English', 'پنجابی', 'سندھی', 'پشتو', 'بلوچی', 'پہاڑی']
                       .map((lang) => Container(
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 10, vertical: 4),
